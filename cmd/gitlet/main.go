@@ -109,6 +109,10 @@ func main() {
 		if len(args) != 2 { fmt.Println("Incorrect operands."); return }
 		if err := ResetCmd(".", args[1]); err != nil { fmt.Println(err.Error()) }
 
+	case "merge":
+		if len(args) != 2 { fmt.Println("Incorrect operands."); return }
+		if err := MergeCmd(".", args[1]); err != nil { fmt.Println(err.Error()) }
+
 
 	default:
 		fmt.Println("No command with that name exists.")
