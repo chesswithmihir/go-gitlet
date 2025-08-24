@@ -60,17 +60,23 @@ func main() {
 		}
 
 	case "checkout":
-		// usage: checkout -- <file>
+		// checkout -- <file>
 		if len(args) == 3 && args[1] == "--" {
 			if err := CheckoutHeadFile(".", args[2]); err != nil { fmt.Println(err.Error()) }
 			return
 		}
-		// usage: checkout <commit> -- <file>
+		// checkout <commit> -- <file>
 		if len(args) == 4 && args[2] == "--" {
 			if err := CheckoutCommitFile(".", args[1], args[3]); err != nil { fmt.Println(err.Error()) }
 			return
 		}
+		// checkout <branch>
+		if len(args) == 2 {
+			if err := CheckoutBranchCmd(".", args[1]); err != nil { fmt.Println(err.Error()) }
+			return
+		}
 		fmt.Println("Incorrect operands.")
+
 	
 	case "status":
 		if len(args) != 1 {
@@ -94,10 +100,14 @@ func main() {
 	case "branch":
 		if len(args) != 2 { fmt.Println("Incorrect operands."); return }
 		if err := BranchCmd(".", args[1]); err != nil { fmt.Println(err.Error()) }
+	
 	case "rm-branch":
 		if len(args) != 2 { fmt.Println("Incorrect operands."); return }
 		if err := RmBranchCmd(".", args[1]); err != nil { fmt.Println(err.Error()) }
 
+	case "reset":
+		if len(args) != 2 { fmt.Println("Incorrect operands."); return }
+		if err := ResetCmd(".", args[1]); err != nil { fmt.Println(err.Error()) }
 
 
 	default:
